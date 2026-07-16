@@ -1,12 +1,10 @@
 import {
-  NewsItem,
-  Event,
-  Document,
-  Announcement,
+  AnnouncementItem,
   ContactMessage,
-  ConnectedUser,
-  CollegeInfo,
-} from "../types";
+  DocumentItem,
+  EventItem,
+  NewsItem,
+} from "../types/admin";
 
 export const newsData: NewsItem[] = [
   {
@@ -14,37 +12,38 @@ export const newsData: NewsItem[] = [
     title: "Inicio del Año Escolar 2026",
     image:
       "https://marandua.com.co/wp-content/uploads/2020/01/FACHADA-COLEGIO-CDR.jpeg",
-    date: "2026-01-20",
+    date: "2026-01-15",
     description:
       "Bienvenida a todos los estudiantes y familias para el nuevo año académico.",
     content:
-      "La Institución Educativa C.D.R. les da la bienvenida al año escolar 2026. Estamos comprometidos con brindar educación de calidad y formar ciudadanos íntegros.",
+      "El Colegio C.D.R. les da la bienvenida al año escolar 2026. Estamos comprometidos con brindar educación de calidad y formar ciudadanos íntegros.",
   },
   {
     id: 2,
     title: "Juegos intramorales 2025",
     image:
-      "https://scontent-bog2-2.xx.fbcdn.net/v/t39.30808-6/526862724_122164070444470788_2919841187383357935_n.jpg?stp=dst-jpg_tt6&cstp=mx1019x767&ctp=s1019x767&_nc_cat=108&ccb=1-7&_nc_sid=127cfc&_nc_ohc=FjbBDG2IdrgQ7kNvwEc-_V8&_nc_oc=AdqwcYiBDoA-V8Hw6w-feMHRaWFmR5Ik9glfDIksaEOyMrhuY0LlWMfpHCKVQC96Gdo&_nc_zt=23&_nc_ht=scontent-bog2-2.xx&_nc_gid=wTKjd51bev_YZA7oH4Afog&_nc_ss=7b289&oh=00_AQBT-ROIaVAVLN3Ymi3cGjtOt8hM3_N9Ek3_k2Ym_t5e5w&oe=6A55F730",
+      "https://scontent.fbog14-1.fna.fbcdn.net/v/t39.30808-6/526353409_122164070750470788_3075890120033551013_n.jpg?stp=dst-jpg_tt6&cstp=mx1020x762&ctp=s1020x762&_nc_cat=100&ccb=1-7&_nc_sid=127cfc&_nc_ohc=q7_3VxwDy4oQ7kNvwF4CWeQ&_nc_oc=AdoxQNbCNFG94sF4XPdBUeCcBGWaWlz0YDHoVrwCPafofygZFjN5jwY3He9J8TC2Eck&_nc_zt=23&_nc_ht=scontent.fbog14-1.fna&_nc_gid=FovMZrbmbTW-2OIrWLQb1A&_nc_ss=7b289&oh=00_AQC1rzUeELFACKk1UTZgsdMXey1eMfBojtQd3Ql22114lw&oe=6A5F2816",
     date: "03/08/2025",
     description:
       "Estudiantes participan en actividades deportivas en su institucion edicativa en el Guaviare.",
     content:
       "Nuestra comunidad educativa participó activamente durante una semana en actividades recreactivas, mejorando la comunicacion entre los estudiantes mediante el deporte.",
+
   },
   {
     id: 3,
-    title: "Reconocimiento a Mejores Estudiantes",
+    title: "Reconocimiento a Mejores promedios del ICFES",
     image:
-      "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&h=600&fit=crop",
+      "",
     date: "2026-04-10",
     description:
-      "Ceremonia de premiación a estudiantes destacados del primer periodo.",
+      "Ceremonia de premiación a estudiantes destacados por su puntaje en la prueba ICFES.",
     content:
-      "Felicitamos a nuestros estudiantes que han demostrado excelencia académica y valores durante el primer periodo académico.",
+      "Felicitamos a nuestros estudiantes que han demostrado excelencia académica y valores durante su estancia en la institucion.",
   },
 ];
 
-export const eventsData: Event[] = [
+export const eventsData: EventItem[] = [
   {
     id: 1,
     name: "Reunión de Padres de Familia",
@@ -82,7 +81,7 @@ export const eventsData: Event[] = [
   },
 ];
 
-export const documentsData: Document[] = [
+export const documentsData: DocumentItem[] = [
   {
     id: 1,
     title: "Manual de Convivencia 2026",
@@ -120,7 +119,7 @@ export const documentsData: Document[] = [
   },
 ];
 
-export const announcementsData: Announcement[] = [
+export const announcementsData: AnnouncementItem[] = [
   {
     id: 1,
     title: "Matrícula Abierta 2026",
@@ -170,85 +169,60 @@ export const contactMessagesData: ContactMessage[] = [
   },
 ];
 
-export const collegeInfo = {
-  name: "C.D.R.",
-  fullName: "INSTITUCIÓN EDUCACTIVA CONCENTRACIÓN DE DESARROLLO RURAL",
-  municipality: "San José del Guaviare",
-  department: "Guaviare",
-  country: "Colombia",
-  phone: "3183789041",
-  email: "institucioneducativacdr@gmail.com",
-  address: "Cra. 19c #1634, San José del Guaviare",
-  schedule: "6:00 AM - 3:00 PM",
-  location: {
-    lat: 2.5806,
-    lng: -72.6371,
-  },
-  mission:
-    "Formar personas íntegras, competentes y comprometidas con el desarrollo sostenible de su región, a través de una educación de calidad que promueva los valores, el respeto por la naturaleza y la construcción de una sociedad más justa y equitativa.",
-  vision:
-    "Para el año 2030, ser reconocidos como la institución educativa líder en la región del Guaviare, caracterizada por la excelencia académica, la innovación pedagógica y el compromiso con la preservación ambiental y el desarrollo comunitario.",
-  history:
-    "La Institución Educativa Concentración de Desarrollo Rural fue fundada en 1985 con el objetivo de brindar educación de calidad a las comunidades rurales de la región. A lo largo de más de 40 años, hemos formado a miles de estudiantes que hoy contribuyen al desarrollo de nuestro departamento y del país.",
-  rector: {
-    name: "ANTONIO SOLANO",
-    title: "Rector",
-    message:
-      "Es un honor dar la bienvenida a nuestra comunidad educativa. En la Institución Educativa C.D.R. estamos comprometidos con la formación integral de nuestros estudiantes, brindándoles las herramientas necesarias para enfrentar los retos del futuro.",
-    image:
-      "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=400&fit=crop",
-  },
-  educationLevels: [
-    "Preescolar",
-    "Básica Primaria (1° a 5°)",
-    "Básica Secundaria (6° a 9°)",
-    "Media Académica (10° y 11°)",
-  ],
-  galleryImages: [
-    {
-      id: 1,
-      title: "Entrada principal",
-      description: "Foto del acceso principal del colegio para dar la bienvenida.",
-      image: "/images/colegio-1.svg",
-      alt: "Entrada principal del colegio",
-    },
-    {
-      id: 2,
-      title: "Aulas y aprendizaje",
-      description: "Espacios donde los estudiantes aprenden y crecen cada día.",
-      image: "/images/colegio-2.svg",
-      alt: "Aulas del colegio",
-    },
-    {
-      id: 3,
-      title: "Celebraciones institucionales",
-      description: "Momentos de convivencia y orgullo institucional.",
-      image: "/images/colegio-3.svg",
-      alt: "Celebración institucional del colegio",
-    },
-  ],
-};
+export interface ConnectedUser {
+  id: number;
+  name: string;
+  email: string;
+  role: "Administrador" | "Docente" | "Estudiante";
+  avatar: string;
+  connectionTime: string;
+  status: "online" | "idle" | "offline";
+}
 
 export const connectedUsersData: ConnectedUser[] = [
   {
     id: 1,
-    name: "Antonio Solano",
-    role: "Rector",
+    name: "Juan Carlos López",
+    email: "juan.lopez@cdr.edu.co",
+    role: "Administrador",
+    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=juan",
+    connectionTime: "08:30 AM",
     status: "online",
-    lastActive: new Date().toISOString(),
   },
   {
     id: 2,
-    name: "María García",
-    role: "Coordinadora",
+    name: "Ana María García",
+    email: "ana.garcia@cdr.edu.co",
+    role: "Docente",
+    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=ana",
+    connectionTime: "08:45 AM",
     status: "online",
-    lastActive: new Date().toISOString(),
   },
   {
     id: 3,
-    name: "Juan Pérez",
+    name: "Miguel Rodríguez",
+    email: "miguel.rodriguez@cdr.edu.co",
     role: "Docente",
-    status: "offline",
-    lastActive: new Date(Date.now() - 3600000).toISOString(),
+    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=miguel",
+    connectionTime: "09:00 AM",
+    status: "online",
+  },
+  {
+    id: 4,
+    name: "Laura Fernández",
+    email: "laura.fernandez@cdr.edu.co",
+    role: "Administrador",
+    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=laura",
+    connectionTime: "09:15 AM",
+    status: "online",
+  },
+  {
+    id: 5,
+    name: "Pablo Martínez",
+    email: "pablo.martinez@cdr.edu.co",
+    role: "Estudiante",
+    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=pablo",
+    connectionTime: "09:30 AM",
+    status: "idle",
   },
 ];

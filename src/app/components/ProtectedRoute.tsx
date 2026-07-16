@@ -1,11 +1,12 @@
-import { Navigate } from 'react-router-dom';
+import { Navigate } from "react-router-dom";
+import { getStoredAuth } from "../hooks/useAuth";
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
 }
 
 export default function ProtectedRoute({ children }: ProtectedRouteProps) {
-  const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
+  const isAuthenticated = getStoredAuth();
 
   if (!isAuthenticated) {
     return <Navigate to="/admin" replace />;

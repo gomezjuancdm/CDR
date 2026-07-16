@@ -1,11 +1,18 @@
-import { Link } from 'react-router-dom';
-import { Phone, Mail, MapPin, Facebook, Instagram, Youtube } from 'lucide-react';
-import { collegeInfo } from '../data/mockData';
+import { Link } from "react-router-dom";
+import {
+  Phone,
+  Mail,
+  MapPin,
+  Facebook,
+  Instagram,
+  Youtube,
+} from "lucide-react";
+import { collegeInfo } from "../data/mockData";
 
 export default function Footer() {
   return (
     <footer className="bg-primary text-primary-foreground">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12"><div/>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
             <h3 className="mb-4">Contacto</h3>
@@ -28,16 +35,28 @@ export default function Footer() {
           <div>
             <h3 className="mb-4">Enlaces Rápidos</h3>
             <div className="space-y-2 text-sm opacity-90">
-              <Link to="/about" className="block hover:opacity-100 transition-opacity">
+              <Link
+                to="/about"
+                className="block hover:opacity-100 transition-opacity"
+              >
                 Quiénes Somos
               </Link>
-              <Link to="/news" className="block hover:opacity-100 transition-opacity">
+              <Link
+                to="/news"
+                className="block hover:opacity-100 transition-opacity"
+              >
                 Noticias y Eventos
               </Link>
-              <Link to="/documents" className="block hover:opacity-100 transition-opacity">
+              <Link
+                to="/documents"
+                className="block hover:opacity-100 transition-opacity"
+              >
                 Documentos
               </Link>
-              <Link to="/contact" className="block hover:opacity-100 transition-opacity">
+              <Link
+                to="/contact"
+                className="block hover:opacity-100 transition-opacity"
+              >
                 Contacto
               </Link>
             </div>
@@ -64,7 +83,9 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-white/20 mt-8 pt-8 text-center text-sm opacity-90">
-          <p>&copy; 2026 {collegeInfo.fullName}. Todos los derechos reservados.</p>
+          <p>
+            &copy; 2026 {collegeInfo.fullName}. Todos los derechos reservados.
+          </p>
         </div>
       </div>
     </footer>

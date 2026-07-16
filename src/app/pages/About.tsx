@@ -1,6 +1,6 @@
-import { motion } from 'motion/react';
-import { Target, Eye, History, Award } from 'lucide-react';
-import { collegeInfo } from '../data/mockData';
+import { motion } from "motion/react";
+import { Target, Eye, History, Award, Images } from "lucide-react";
+import { collegeInfo } from "../data/mockData";
 
 export default function About() {
   return (
@@ -98,7 +98,7 @@ export default function About() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6 }}
-          className="bg-gradient-to-br from-primary to-secondary text-white rounded-lg shadow-xl overflow-hidden"
+          className="mb-12 bg-gradient-to-br from-primary to-secondary text-white rounded-lg shadow-xl overflow-hidden"
         >
           <div className="grid grid-cols-1 md:grid-cols-3 gap-0">
             <div className="md:col-span-1">
@@ -110,9 +110,11 @@ export default function About() {
             </div>
             <div className="md:col-span-2 p-8">
               <h2 className="mb-2">{collegeInfo.rector.name}</h2>
-              <p className="text-lg opacity-90 mb-6">{collegeInfo.rector.title}</p>
+              <p className="text-lg opacity-90 mb-6">
+                {collegeInfo.rector.title}
+              </p>
               <p className="leading-relaxed opacity-90">
-                "{collegeInfo.rector.message}"
+                &ldquo;{collegeInfo.rector.message}&rdquo;
               </p>
             </div>
           </div>
@@ -122,7 +124,39 @@ export default function About() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.7 }}
-          className="mt-12 bg-muted rounded-lg p-8"
+          className="mb-12"
+        >
+          <div className="flex items-center mb-6">
+            <Images className="h-8 w-8 text-accent mr-4" />
+            <h2>Galería del Colegio</h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {collegeInfo.galleryImages.map((image) => (
+              <div
+                key={image.id}
+                className="bg-card rounded-lg shadow-md overflow-hidden"
+              >
+                <img
+                  src={image.image}
+                  alt={image.alt}
+                  className="w-full h-48 object-cover"
+                />
+                <div className="p-4">
+                  <h3 className="font-semibold mb-2">{image.title}</h3>
+                  <p className="text-sm text-muted-foreground">
+                    {image.description}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.8 }}
+          className="bg-muted rounded-lg p-8"
         >
           <h2 className="mb-6 text-center">Información de Contacto</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">

@@ -1,18 +1,23 @@
-import { useState } from 'react';
-import { motion } from 'motion/react';
-import { FileText, Download, Search, Filter } from 'lucide-react';
-import { documentsData } from '../data/mockData';
+import { useState } from "react";
+import { motion } from "motion/react";
+import { FileText, Download, Search, Filter } from "lucide-react";
+import { documentsData } from "../data/mockData";
 
 export default function Documents() {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState<string>('Todos');
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState<string>("Todos");
 
-  const categories = ['Todos', ...Array.from(new Set(documentsData.map(doc => doc.category)))];
+  const categories = [
+    "Todos",
+    ...Array.from(new Set(documentsData.map((doc) => doc.category))),
+  ];
 
-  const filteredDocuments = documentsData.filter(doc => {
-    const matchesSearch = doc.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         doc.description.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesCategory = selectedCategory === 'Todos' || doc.category === selectedCategory;
+  const filteredDocuments = documentsData.filter((doc) => {
+    const matchesSearch =
+      doc.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      doc.description.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCategory =
+      selectedCategory === "Todos" || doc.category === selectedCategory;
     return matchesSearch && matchesCategory;
   });
 
@@ -46,11 +51,15 @@ export default function Documents() {
                 </li>
                 <li className="flex items-start">
                   <span className="mr-2">•</span>
-                  <span>Fotocopia del documento de identidad del estudiante</span>
+                  <span>
+                    Fotocopia del documento de identidad del estudiante
+                  </span>
                 </li>
                 <li className="flex items-start">
                   <span className="mr-2">•</span>
-                  <span>Fotocopia de documentos de identidad de los padres</span>
+                  <span>
+                    Fotocopia de documentos de identidad de los padres
+                  </span>
                 </li>
                 <li className="flex items-start">
                   <span className="mr-2">•</span>

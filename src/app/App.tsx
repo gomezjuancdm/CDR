@@ -1,22 +1,23 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { Toaster } from 'sonner';
-import Layout from './components/Layout';
-import ProtectedRoute from './components/ProtectedRoute';
-import ScrollToTopOnRouteChange from './components/ScrollToTopOnRouteChange';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Toaster } from "sonner";
+import Layout from "./components/Layout";
+import ProtectedRoute from "./components/ProtectedRoute";
+import ScrollToTopOnRouteChange from "./components/ScrollToTopOnRouteChange";
 
-import Home from './pages/Home';
-import About from './pages/About';
-import News from './pages/News';
-import Documents from './pages/Documents';
-import Contact from './pages/Contact';
+import Home from "./pages/Home";
+import About from "./pages/About";
+import News from "./pages/News";
+import Documents from "./pages/Documents";
+import Contact from "./pages/Contact";
 
-import Login from './pages/admin/Login';
-import Dashboard from './pages/admin/Dashboard';
-import ManageNews from './pages/admin/ManageNews';
-import ManageEvents from './pages/admin/ManageEvents';
-import ManageDocuments from './pages/admin/ManageDocuments';
-import ManageAnnouncements from './pages/admin/ManageAnnouncements';
-import ManageMessages from './pages/admin/ManageMessages';
+import Login from "./pages/admin/Login";
+import Dashboard from "./pages/admin/Dashboard";
+import ManageNews from "./pages/admin/ManageNews";
+import ManageEvents from "./pages/admin/ManageEvents";
+import ManageDocuments from "./pages/admin/ManageDocuments";
+import ManageAnnouncements from "./pages/admin/ManageAnnouncements";
+import ManageMessages from "./pages/admin/ManageMessages";
+import DatabaseManager from "./pages/admin/DatabaseManager";
 
 export default function App() {
   return (
@@ -78,6 +79,14 @@ export default function App() {
             element={
               <ProtectedRoute>
                 <ManageMessages />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/database"
+            element={
+              <ProtectedRoute>
+                <DatabaseManager />
               </ProtectedRoute>
             }
           />

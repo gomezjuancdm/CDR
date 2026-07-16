@@ -90,12 +90,22 @@ function Carousel({
 
   React.useEffect(() => {
     if (!api || !setApi) return;
-    setApi(api);
+    // avoid synchronous setState in effect
+    if (typeof window !== "undefined") {
+      window.requestAnimationFrame(() => setApi(api));
+    } else {
+      setApi(api);
+    }
   }, [api, setApi]);
 
   React.useEffect(() => {
     if (!api) return;
-    onSelect(api);
+    if (typeof window !== "undefined") {
+      window.requestAnimationFrame(() => onSelect(api));
+    } else {
+      // fallback defer
+      setTimeout(() => onSelect(api), 0);
+    }
     api.on("reInit", onSelect);
     api.on("select", onSelect);
 

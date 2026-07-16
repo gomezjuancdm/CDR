@@ -1,166 +1,218 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { motion } from 'motion/react';
-import { ArrowLeft, Mail, MailOpen, Trash2, Calendar } from 'lucide-react';
-import { contactMessagesData } from '../../data/mockData';
-import { toast } from 'sonner';
+import { useMemo, useState } from "react";
+import { motion } from "motion/react";
+import { Mail, MailOpen, Trash2, Calendar, Reply } from "lucide-react";
+import { toast } from "sonner";
+import { Button } from "../../components/ui/button";
+import AdminLayout from "../../components/admin/AdminLayout";
+import AdminSectionHeader from "../../components/admin/AdminSectionHeader";
+import { ReplyDialog } from "../../components/admin/ReplyDialog";
+import { useData } from "../../hooks/useData";
+import { ContactMessage } from "../../types";
 
 export default function ManageMessages() {
-  const [messages, setMessages] = useState(contactMessagesData);
-  const [selectedMessage, setSelectedMessage] = useState<number | null>(null);
+  const { data: messages, update, delete: remove } = useData<ContactMessage>("messages");
+  const [selectedMessageId, setSelectedMessageId] = useState<number | null>(
+    messages[0]?.id ?? null,
+  );
+  const [replyDialogOpen, setReplyDialogOpen] = useState(false);
 
-  const handleMarkAsRead = (id: number) => {
-    setMessages(messages.map(msg =>
-      msg.id === id ? { ...msg, read: true } : msg
-    ));
-    toast.success('Mensaje marcado como leído');
+  const selectedMessage = useMemo(
+    () => messages.find((msg) => msg.id === selectedMessageId) ?? null,
+    [messages, selectedMessageId],
+  );
+
+  const unreadCount = messages.filter((msg) => !msg.read).length;
+
+  const handleSelectMessage = (id: number) => {
+    const message = messages.find((m) => m.id === id);
+    if (!message) return;
+
+    setSelectedMessageId(id);
+
+    if (!message.read) {
+      update(id, { read: true });
+      toast.success("Mensaje marcado como leído");
+    }
   };
 
   const handleDelete = (id: number) => {
-    setMessages(messages.filter(msg => msg.id !== id));
-    setSelectedMessage(null);
-    toast.success('Mensaje eliminado correctamente');
+    remove(id);
+    if (selectedMessageId === id) {
+      setSelectedMessageId(
+        messages.filter((msg) => msg.id !== id)[0]?.id ?? null,
+      );
+    }
+    toast.success("Mensaje eliminado");
   };
 
-  const unreadCount = messages.filter(m => !m.read).length;
+  const handleReplySent = (replyContent: string) => {
+    if (!selectedMessage) return;
+
+    const newReplies = [
+      ...(selectedMessage.replies || []),
+      {
+        date: new Date().toLocaleDateString("es-CO"),
+        content: replyContent,
+      },
+    ];
+
+    update(selectedMessageId!, { replies: newReplies });
+  };
 
   return (
-    <div className="min-h-screen bg-muted">
-      <nav className="bg-primary text-primary-foreground shadow-lg">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center space-x-4">
-              <Link
-                to="/admin/dashboard"
-                className="flex items-center space-x-2 hover:opacity-80 transition-opacity"
-              >
-                <ArrowLeft className="h-5 w-5" />
-                <span>Volver al Dashboard</span>
-              </Link>
-            </div>
+    <AdminLayout
+      title="Mensajes de Contacto"
+      subtitle="Responde y administra la comunicación"
+      activeSection="messages"
+      action={
+        <Button variant="secondary" size="sm" disabled>
+          Nuevos: {unreadCount}
+        </Button>
+      }
+    >
+      <AdminSectionHeader
+        title="Bandeja de entrada"
+        description={
+          unreadCount > 0
+            ? `${unreadCount} mensaje(s) sin leer`
+            : "Todos los mensajes leídos"
+        }
+      />
+
+      <div className="grid gap-6 lg:grid-cols-3">
+        {/* Lista */}
+        <div className="lg:col-span-1 rounded-3xl border border-border bg-card shadow-sm overflow-hidden">
+          <div className="border-b border-border bg-muted p-5">
+            <h3 className="text-base font-semibold">Mensajes</h3>
           </div>
-        </div>
-      </nav>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="mb-8">
-          <h1 className="mb-2">Mensajes de Contacto</h1>
-          <p className="text-muted-foreground">
-            {unreadCount > 0 ? `${unreadCount} mensajes sin leer` : 'Todos los mensajes leídos'}
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div className="lg:col-span-1 bg-card rounded-lg shadow-lg overflow-hidden">
-            <div className="p-4 bg-muted border-b border-border">
-              <h3>Bandeja de Entrada</h3>
-            </div>
-            <div className="divide-y divide-border max-h-[600px] overflow-y-auto">
-              {messages.map((message, index) => (
-                <motion.div
+          <div className="max-h-[650px] overflow-y-auto">
+            {messages.length === 0 ? (
+              <div className="p-8 text-center text-muted-foreground">
+                <p>No hay mensajes</p>
+              </div>
+            ) : (
+              messages.map((message, idx) => (
+                <motion.button
                   key={message.id}
-                  initial={{ opacity: 0, x: -20 }}
+                  type="button"
+                  onClick={() => handleSelectMessage(message.id)}
+                  initial={{ opacity: 0, x: -16 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.05 }}
-                  onClick={() => {
-                    setSelectedMessage(message.id);
-                    if (!message.read) {
-                      handleMarkAsRead(message.id);
-                    }
-                  }}
-                  className={`p-4 cursor-pointer transition-colors ${
-                    selectedMessage === message.id ? 'bg-muted' : 'hover:bg-muted/50'
-                  } ${!message.read ? 'bg-accent/10' : ''}`}
+                  transition={{ delay: idx * 0.04 }}
+                  className={`w-full text-left border-b border-border px-5 py-4 transition-colors ${
+                    selectedMessageId === message.id ? "bg-muted" : "hover:bg-muted/80"
+                  } ${!message.read ? "bg-accent/10" : ""}`}
                 >
-                  <div className="flex items-start justify-between mb-2">
-                    <div className="flex items-center space-x-2">
-                      {message.read ? (
-                        <MailOpen className="h-4 w-4 text-muted-foreground" />
-                      ) : (
-                        <Mail className="h-4 w-4 text-primary" />
-                      )}
-                      <p className={message.read ? '' : 'font-semibold'}>
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="flex-1 min-w-0">
+                      <p className={`font-medium truncate ${!message.read ? "text-foreground" : "text-foreground/70"}`}>
                         {message.name}
+                      </p>
+                      <p className="text-sm text-muted-foreground truncate">
+                        {message.subject}
                       </p>
                     </div>
                     {!message.read && (
-                      <span className="w-2 h-2 bg-primary rounded-full"></span>
+                      <div className="h-2 w-2 bg-accent rounded-full mt-2 flex-shrink-0" />
                     )}
                   </div>
-                  <p className="text-sm mb-1">{message.subject}</p>
-                  <p className="text-xs text-muted-foreground">
-                    {message.message.substring(0, 50)}...
-                  </p>
-                  <div className="flex items-center text-xs text-muted-foreground mt-2">
-                    <Calendar className="h-3 w-3 mr-1" />
-                    {new Date(message.date).toLocaleDateString('es-CO')}
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-
-          <div className="lg:col-span-2 bg-card rounded-lg shadow-lg">
-            {selectedMessage ? (
-              <div className="h-full flex flex-col">
-                {(() => {
-                  const message = messages.find(m => m.id === selectedMessage);
-                  if (!message) return null;
-
-                  return (
-                    <>
-                      <div className="p-6 border-b border-border">
-                        <div className="flex items-start justify-between mb-4">
-                          <div className="flex-1">
-                            <h2 className="mb-2">{message.subject}</h2>
-                            <div className="flex items-center space-x-4 text-sm text-muted-foreground">
-                              <span>De: {message.name}</span>
-                              <span>{message.email}</span>
-                            </div>
-                          </div>
-                          <button
-                            onClick={() => handleDelete(message.id)}
-                            className="p-2 hover:bg-muted rounded transition-colors"
-                          >
-                            <Trash2 className="h-5 w-5 text-destructive" />
-                          </button>
-                        </div>
-                        <div className="flex items-center text-sm text-muted-foreground">
-                          <Calendar className="h-4 w-4 mr-2" />
-                          {new Date(message.date).toLocaleDateString('es-CO', {
-                            year: 'numeric',
-                            month: 'long',
-                            day: 'numeric'
-                          })}
-                        </div>
-                      </div>
-
-                      <div className="flex-1 p-6">
-                        <p className="leading-relaxed">{message.message}</p>
-                      </div>
-
-                      <div className="p-6 border-t border-border">
-                        <button className="bg-primary text-primary-foreground px-6 py-2 rounded-lg hover:bg-primary/90 transition-colors">
-                          Responder
-                        </button>
-                      </div>
-                    </>
-                  );
-                })()}
-              </div>
-            ) : (
-              <div className="h-full flex items-center justify-center p-12 text-center">
-                <div>
-                  <Mail className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
-                  <p className="text-muted-foreground">
-                    Selecciona un mensaje para ver su contenido
-                  </p>
-                </div>
-              </div>
+                </motion.button>
+              ))
             )}
           </div>
         </div>
+
+        {/* Detalle */}
+        <div className="lg:col-span-2">
+          {selectedMessage ? (
+            <motion.div
+              key={selectedMessage.id}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="rounded-3xl border border-border bg-card shadow-sm overflow-hidden flex flex-col h-full"
+            >
+              <div className="border-b border-border bg-muted p-6 flex items-center justify-between">
+                <div>
+                  <h3 className="text-lg font-semibold">{selectedMessage.name}</h3>
+                  <p className="text-sm text-muted-foreground">{selectedMessage.email}</p>
+                </div>
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  onClick={() => handleDelete(selectedMessage.id)}
+                >
+                  <Trash2 className="h-4 w-4" />
+                </Button>
+              </div>
+
+              <div className="flex-1 overflow-y-auto p-6 space-y-6">
+                <div>
+                  <h4 className="font-semibold mb-2">Asunto</h4>
+                  <p className="text-foreground/80">{selectedMessage.subject}</p>
+                </div>
+
+                <div>
+                  <h4 className="font-semibold mb-2">Mensaje</h4>
+                  <p className="text-foreground/80 whitespace-pre-wrap leading-relaxed">
+                    {selectedMessage.message}
+                  </p>
+                </div>
+
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <Calendar className="h-4 w-4" />
+                  <span>{selectedMessage.date}</span>
+                </div>
+
+                {selectedMessage.replies && selectedMessage.replies.length > 0 && (
+                  <div className="border-t pt-6">
+                    <h4 className="font-semibold mb-4">Respuestas ({selectedMessage.replies.length})</h4>
+                    <div className="space-y-4">
+                      {selectedMessage.replies.map((reply, idx) => (
+                        <motion.div
+                          key={idx}
+                          initial={{ opacity: 0, x: 10 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          className="bg-muted/50 rounded-lg p-4 border border-border/50"
+                        >
+                          <p className="text-xs text-muted-foreground mb-2">📝 {reply.date}</p>
+                          <p className="text-sm text-foreground whitespace-pre-wrap leading-relaxed">
+                            {reply.content}
+                          </p>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              <div className="border-t border-border p-6 bg-muted/30">
+                <Button
+                  onClick={() => setReplyDialogOpen(true)}
+                  className="w-full"
+                >
+                  <Reply className="h-4 w-4 mr-2" />
+                  Agregar Respuesta
+                </Button>
+              </div>
+            </motion.div>
+          ) : (
+            <div className="rounded-3xl border border-border bg-card shadow-sm h-96 flex items-center justify-center">
+              <p className="text-muted-foreground">Selecciona un mensaje</p>
+            </div>
+          )}
+        </div>
       </div>
-    </div>
+
+      {selectedMessage && (
+        <ReplyDialog
+          isOpen={replyDialogOpen}
+          onClose={() => setReplyDialogOpen(false)}
+          recipientName={selectedMessage.name}
+          messageSubject={selectedMessage.subject}
+          onReplySent={handleReplySent}
+        />
+      )}
+    </AdminLayout>
   );
 }

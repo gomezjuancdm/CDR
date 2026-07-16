@@ -1,10 +1,10 @@
-import { useState } from 'react';
-import { motion } from 'motion/react';
-import { Calendar, MapPin, Clock, Newspaper } from 'lucide-react';
-import { newsData, eventsData } from '../data/mockData';
+import { useState } from "react";
+import { motion } from "motion/react";
+import { Calendar, MapPin, Clock, Newspaper } from "lucide-react";
+import { newsData, eventsData } from "../data/mockData";
 
 export default function News() {
-  const [activeTab, setActiveTab] = useState<'news' | 'events'>('news');
+  const [activeTab, setActiveTab] = useState<"news" | "events">("news");
 
   return (
     <div className="min-h-screen">
@@ -26,11 +26,11 @@ export default function News() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="flex space-x-4 mb-8 border-b border-border">
           <button
-            onClick={() => setActiveTab('news')}
+            onClick={() => setActiveTab("news")}
             className={`px-6 py-3 border-b-2 transition-colors ${
-              activeTab === 'news'
-                ? 'border-primary text-primary'
-                : 'border-transparent text-muted-foreground hover:text-foreground'
+              activeTab === "news"
+                ? "border-primary text-primary"
+                : "border-transparent text-muted-foreground hover:text-foreground"
             }`}
           >
             <div className="flex items-center space-x-2">
@@ -39,11 +39,11 @@ export default function News() {
             </div>
           </button>
           <button
-            onClick={() => setActiveTab('events')}
+            onClick={() => setActiveTab("events")}
             className={`px-6 py-3 border-b-2 transition-colors ${
-              activeTab === 'events'
-                ? 'border-primary text-primary'
-                : 'border-transparent text-muted-foreground hover:text-foreground'
+              activeTab === "events"
+                ? "border-primary text-primary"
+                : "border-transparent text-muted-foreground hover:text-foreground"
             }`}
           >
             <div className="flex items-center space-x-2">
@@ -53,7 +53,7 @@ export default function News() {
           </button>
         </div>
 
-        {activeTab === 'news' && (
+        {activeTab === "news" && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -78,10 +78,10 @@ export default function News() {
                   <div className="md:col-span-2 p-6">
                     <div className="flex items-center text-sm text-muted-foreground mb-3">
                       <Calendar className="h-4 w-4 mr-2" />
-                      {new Date(news.date).toLocaleDateString('es-CO', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric'
+                      {new Date(news.date).toLocaleDateString("es-CO", {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
                       })}
                     </div>
                     <h2 className="mb-4">{news.title}</h2>
@@ -98,7 +98,7 @@ export default function News() {
           </motion.div>
         )}
 
-        {activeTab === 'events' && (
+        {activeTab === "events" && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -121,10 +121,10 @@ export default function News() {
                   <div className="flex items-center text-muted-foreground">
                     <Calendar className="h-4 w-4 mr-2 flex-shrink-0" />
                     <span className="text-sm">
-                      {new Date(event.date).toLocaleDateString('es-CO', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric'
+                      {new Date(event.date).toLocaleDateString("es-CO", {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
                       })}
                     </span>
                   </div>

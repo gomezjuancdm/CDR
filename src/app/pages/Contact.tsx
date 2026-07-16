@@ -1,27 +1,46 @@
-import { useState } from 'react';
-import { motion } from 'motion/react';
-import { MapPin, Phone, Mail, Clock, Send } from 'lucide-react';
-import { collegeInfo } from '../data/mockData';
-import { toast } from 'sonner';
+import { useState } from "react";
+import { motion } from "motion/react";
+import { MapPin, Phone, Mail, Clock, Send } from "lucide-react";
+import { collegeInfo } from "../data/mockData";
+import { toast } from "sonner";
+import { useData } from "../hooks/useData";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
   });
+  const { add: addMessage } = useData("messages");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success('Mensaje enviado correctamente. Nos pondremos en contacto pronto.');
-    setFormData({ name: '', email: '', subject: '', message: '' });
+    
+    try {
+      // Guardar mensaje en la BD
+      addMessage({
+        name: formData.name,
+        email: formData.email,
+        subject: formData.subject,
+        message: formData.message,
+        date: new Date().toISOString().split('T')[0],
+        read: false,
+      });
+
+      toast.success("Mensaje enviado correctamente. Nos pondremos en contacto pronto.");
+      setFormData({ name: "", email: "", subject: "", message: "" });
+    } catch (error) {
+      toast.error("Error al enviar el mensaje. Intenta de nuevo.");
+    }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -84,7 +103,8 @@ export default function Contact() {
             <p className="text-muted-foreground mb-4">{collegeInfo.schedule}</p>
             <div className="bg-muted rounded p-3 mt-4">
               <p className="text-sm">
-                Para atención presencial, favor presentarse con documento de identidad.
+                Para atención presencial, favor presentarse con documento de
+                identidad.
               </p>
             </div>
           </motion.div>

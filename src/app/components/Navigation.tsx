@@ -1,17 +1,17 @@
-import { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, GraduationCap } from 'lucide-react';
+import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { Menu, X, GraduationCap } from "lucide-react";
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
 
   const navItems = [
-    { name: 'Inicio', path: '/' },
-    { name: 'Quiénes Somos', path: '/about' },
-    { name: 'Noticias', path: '/news' },
-    { name: 'Documentos', path: '/documents' },
-    { name: 'Contacto', path: '/contact' }
+    { name: "Inicio", path: "/" },
+    { name: "Quiénes Somos", path: "/about" },
+    { name: "Noticias", path: "/news" },
+    { name: "Documentos", path: "/documents" },
+    { name: "Contacto", path: "/contact" },
   ];
 
   const isActive = (path: string) => location.pathname === path;
@@ -34,9 +34,7 @@ export default function Navigation() {
                 key={item.path}
                 to={item.path}
                 className={`px-4 py-2 rounded-md transition-colors ${
-                  isActive(item.path)
-                    ? 'bg-white/20'
-                    : 'hover:bg-white/10'
+                  isActive(item.path) ? "bg-white/20" : "hover:bg-white/10"
                 }`}
               >
                 {item.name}
@@ -68,9 +66,7 @@ export default function Navigation() {
                 to={item.path}
                 onClick={() => setIsOpen(false)}
                 className={`block px-3 py-2 rounded-md ${
-                  isActive(item.path)
-                    ? 'bg-white/20'
-                    : 'hover:bg-white/10'
+                  isActive(item.path) ? "bg-white/20" : "hover:bg-white/10"
                 }`}
               >
                 {item.name}

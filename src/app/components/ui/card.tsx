@@ -28,27 +28,43 @@ function CardHeader({ className, ...props }: React.ComponentProps<"div">) {
   );
 }
 
-function CardTitle({ className, ...props }: React.ComponentProps<"div">) {
+function CardTitle({
+  className,
+  children,
+  ...props
+}: React.ComponentProps<"div">) {
   return (
     <h4
       data-slot="card-title"
       className={cn("leading-none", className)}
       {...props}
-    />
+    >
+      {children}
+    </h4>
   );
 }
 
-function CardDescription({ className, ...props }: React.ComponentProps<"div">) {
+function CardDescription({
+  className,
+  children,
+  ...props
+}: React.ComponentProps<"div">) {
   return (
     <p
       data-slot="card-description"
       className={cn("text-muted-foreground", className)}
       {...props}
-    />
+    >
+      {children}
+    </p>
   );
 }
 
-function CardAction({ className, ...props }: React.ComponentProps<"div">) {
+function CardAction({
+  className,
+  children,
+  ...props
+}: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="card-action"
@@ -57,27 +73,41 @@ function CardAction({ className, ...props }: React.ComponentProps<"div">) {
         className,
       )}
       {...props}
-    />
+    >
+      {children}
+    </div>
   );
 }
 
-function CardContent({ className, ...props }: React.ComponentProps<"div">) {
+function CardContent({
+  className,
+  children,
+  ...props
+}: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="card-content"
       className={cn("px-6 [&:last-child]:pb-6", className)}
       {...props}
-    />
+    >
+      {children}
+    </div>
   );
 }
 
-function CardFooter({ className, ...props }: React.ComponentProps<"div">) {
+function CardFooter({
+  className,
+  children,
+  ...props
+}: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="card-footer"
       className={cn("flex items-center px-6 pb-6 [.border-t]:pt-6", className)}
       {...props}
-    />
+    >
+      {children}
+    </div>
   );
 }
 
