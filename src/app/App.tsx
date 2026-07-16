@@ -7,6 +7,7 @@ import ScrollToTopOnRouteChange from "./components/ScrollToTopOnRouteChange";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import News from "./pages/News";
+import NewsDetail from "./pages/NewsDetail";
 import Documents from "./pages/Documents";
 import Contact from "./pages/Contact";
 
@@ -29,6 +30,7 @@ export default function App() {
             <Route index element={<Home />} />
             <Route path="about" element={<About />} />
             <Route path="news" element={<News />} />
+            <Route path="news/:id" element={<NewsDetail />} />
             <Route path="documents" element={<Documents />} />
             <Route path="contact" element={<Contact />} />
           </Route>

@@ -1,6 +1,7 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { motion } from "motion/react";
-import { Calendar, MapPin, Clock, Newspaper } from "lucide-react";
+import { Calendar, MapPin, Clock, Newspaper, ArrowRight } from "lucide-react";
 import { newsData, eventsData } from "../data/mockData";
 
 export default function News() {
@@ -65,34 +66,42 @@ export default function News() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
-                className="bg-card rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
+                className="overflow-hidden rounded-lg bg-card shadow-lg transition-shadow hover:shadow-xl"
               >
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-0">
-                  <div className="md:col-span-1">
-                    <img
-                      src={news.image}
-                      alt={news.title}
-                      className="w-full h-64 md:h-full object-cover"
-                    />
-                  </div>
-                  <div className="md:col-span-2 p-6">
-                    <div className="flex items-center text-sm text-muted-foreground mb-3">
-                      <Calendar className="h-4 w-4 mr-2" />
-                      {new Date(news.date).toLocaleDateString("es-CO", {
-                        year: "numeric",
-                        month: "long",
-                        day: "numeric",
-                      })}
+                <Link to={`/news/${news.id}`} className="group block h-full">
+                  <div className="grid gap-0 md:grid-cols-3">
+                    <div className="md:col-span-1">
+                      <img
+                        src={news.image}
+                        alt={news.title}
+                        className="h-64 w-full object-cover transition-transform duration-300 group-hover:scale-105 md:h-full"
+                      />
                     </div>
-                    <h2 className="mb-4">{news.title}</h2>
-                    <p className="text-muted-foreground mb-4">
-                      {news.description}
-                    </p>
-                    <p className="text-foreground leading-relaxed">
-                      {news.content}
-                    </p>
+                    <div className="p-6 md:col-span-2">
+                      <div className="mb-3 flex items-center text-sm text-muted-foreground">
+                        <Calendar className="mr-2 h-4 w-4" />
+                        {new Date(news.date).toLocaleDateString("es-CO", {
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
+                        })}
+                      </div>
+                      <h2 className="mb-4 transition-colors group-hover:text-primary">
+                        {news.title}
+                      </h2>
+                      <p className="mb-4 text-muted-foreground">
+                        {news.description}
+                      </p>
+                      <p className="leading-relaxed text-foreground">
+                        {news.content}
+                      </p>
+                      <div className="mt-5 inline-flex items-center gap-2 text-sm font-medium text-primary">
+                        Leer más
+                        <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                      </div>
+                    </div>
                   </div>
-                </div>
+                </Link>
               </motion.div>
             ))}
           </motion.div>
