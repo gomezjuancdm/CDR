@@ -22,9 +22,9 @@ export const newsData: NewsItem[] = [
   },
   {
     id: 2,
-    title: "Juegos intramorales 2025",
+    title: "Juegos intramurales 2025",
     image:
-      "https://scontent-bog2-2.xx.fbcdn.net/v/t39.30808-6/526862724_122164070444470788_2919841187383357935_n.jpg?stp=dst-jpg_tt6&cstp=mx1019x767&ctp=s1019x767&_nc_cat=108&ccb=1-7&_nc_sid=127cfc&_nc_ohc=FjbBDG2IdrgQ7kNvwEc-_V8&_nc_oc=AdqwcYiBDoA-V8Hw6w-feMHRaWFmR5Ik9glfDIksaEOyMrhuY0LlWMfpHCKVQC96Gdo&_nc_zt=23&_nc_ht=scontent-bog2-2.xx&_nc_gid=wTKjd51bev_YZA7oH4Afog&_nc_ss=7b289&oh=00_AQBT-ROIaVAVLN3Ymi3cGjtOt8hM3_N9Ek3_k2Ym_t5e5w&oe=6A55F730",
+      "../../../../../CDR/public/images/juegos-intramorales.jpg",
     date: "03/08/2025",
     description:
       "Estudiantes participan en actividades deportivas en su institucion edicativa en el Guaviare.",
@@ -33,14 +33,14 @@ export const newsData: NewsItem[] = [
   },
   {
     id: 3,
-    title: "Reconocimiento a Mejores Estudiantes",
+    title: "Reconocimiento a Mejores promedios del ICFES",
     image:
-      "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&h=600&fit=crop",
+      "../../../../../CDR/public/images/reconocimiento_c_d_r.jpg",
     date: "2026-04-10",
     description:
-      "Ceremonia de premiación a estudiantes destacados del primer periodo.",
+      "Ceremonia de premiación a estudiantes destacados por su puntaje en la prueba ICFES.",
     content:
-      "Felicitamos a nuestros estudiantes que han demostrado excelencia académica y valores durante el primer periodo académico.",
+      "Felicitamos a nuestros estudiantes que han demostrado excelencia académica y valores durante su estancia en la institucion.",
   },
 ];
 

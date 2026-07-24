@@ -22,7 +22,7 @@ export const newsData: NewsItem[] = [
     id: 2,
     title: "Juegos intramorales 2025",
     image:
-      "https://scontent.fbog14-1.fna.fbcdn.net/v/t39.30808-6/526353409_122164070750470788_3075890120033551013_n.jpg?stp=dst-jpg_tt6&cstp=mx1020x762&ctp=s1020x762&_nc_cat=100&ccb=1-7&_nc_sid=127cfc&_nc_ohc=q7_3VxwDy4oQ7kNvwF4CWeQ&_nc_oc=AdoxQNbCNFG94sF4XPdBUeCcBGWaWlz0YDHoVrwCPafofygZFjN5jwY3He9J8TC2Eck&_nc_zt=23&_nc_ht=scontent.fbog14-1.fna&_nc_gid=FovMZrbmbTW-2OIrWLQb1A&_nc_ss=7b289&oh=00_AQC1rzUeELFACKk1UTZgsdMXey1eMfBojtQd3Ql22114lw&oe=6A5F2816",
+      "../../../../../CDR/public/images/juegos-intramorales.jpg",
     date: "03/08/2025",
     description:
       "Estudiantes participan en actividades deportivas en su institucion edicativa en el Guaviare.",
